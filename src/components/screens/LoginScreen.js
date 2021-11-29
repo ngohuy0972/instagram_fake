@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image, Button, StatusBar, } from 'react-native';
 import colors from '../../themes/colors';
 import style from '../../themes/style';
-import users from '../../models/users';
 import { AuthContext } from '../context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { users } from '../../models/users';
 
 const LoginScreen = ({navigation}) => {
 
@@ -77,8 +77,7 @@ const LoginScreen = ({navigation}) => {
 
     const foundUser = users.filter( item => {
       return username == item.username && password == item.password;
-      } );
-    
+    })
       if ( data.username.length == 0 || data.password.length == 0 ) {
           alert('Wrong Input!');
           return;

@@ -1,30 +1,39 @@
 export const posts = [
   {
     id: 1,
-    author: username1,
-    status: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    userId: 4,
+    author: '_huybapp',
+    avatarAuthor: require('../assets/huybap.jpg'),
+    status: 'Wish i have a nice working day <3 <3 <3',
     likes: '99',
-    image: '../../../assets/post6.jpg'
+    image: require('../assets/post5.jpg')
   },
   {
     id: 2,
-    author: username2,
-    status: 'Lorem Ipsum has been the industry of standard dummy text ever since the 1500s.',
+    userId: 3,
+    author: '_ngvac',
+    avatarAuthor: require('../assets/user2.jpg'),
+    status: 'My team <3',
     likes: '89',
-    image: '../../../assets/post5.jpg'
+    image: require('../assets/post6.jpg')
   },
   {
     id: 3,
-    author: username3,
-    status: 'when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+    userId: 2,
+    author: '_ngvad',
+    avatarAuthor: require('../assets/user3.jpg'),
+    status: 'I love this corner in my room :<',
     likes: '79',
-    image: '../../../assets/post4.jpg'
-  },
+    image: require('../assets/post4.jpg')
+  }
+  ,
   {
     id: 4,
-    author: username4,
-    status: 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
+    userId: 1,
+    author: '_ngvab',
+    avatarAuthor: require('../assets/user1.jpg'),
+    status: 'Photoshot with cocacola :p',
     likes: '69',
-    image: '../../../assets/post3.jpg'
-  },
+    image: require('../assets/post3.jpg')
+  }
 ]

@@ -5,18 +5,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import colors from '../../../themes/colors';
 import ContentComment from './ContentComment';
 
-function CommentScreen(props) {
+function CommentScreen({route, navigation}) {
+
+  const { post } = route.params;
+  // console.log(post)
 
   return (
     <View style={style.container}>
       <View style={styles.header}>
         <TouchableOpacity style={styles.goBack}>
           <Ionicons name='arrow-back-outline' size={30} color={colors.black} 
-                    onPress={() => props.navigation.goBack()} />
+                    onPress={() => navigation.goBack()} />
         </TouchableOpacity>
         <Text style={styles.textHeader}>All Comments</Text>
       </View>
-      <ContentComment />
+      <ContentComment postData={post} />
 
       <View style={styles.bottom}>
         <Image style={styles.avatarUserComment} source={require('../../../assets/huybap.jpg')} />
@@ -24,6 +27,13 @@ function CommentScreen(props) {
                             placeholder='Add a comment...' 
                             placeholderTextColor={colors.textColorSecond} >
         </TextInput>
+        <TouchableOpacity>
+            <Ionicons style={styles.postComment} 
+                      name='arrow-up-circle-outline' 
+                      size={35} color={colors.black} 
+                      onPress={() => alert('post comment')}
+                      />
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -68,12 +78,15 @@ const styles = StyleSheet.create({
   },
   commentInput: {
     marginLeft: 10,
-    width: '80%',
+    width: '70%',
     height: 40,
     borderWidth: 1,
     borderRadius: 50,
     paddingLeft: 15,
     borderColor: colors.secondary
+  },
+  postComment: {
+    marginLeft: 15,
   }
 })
 

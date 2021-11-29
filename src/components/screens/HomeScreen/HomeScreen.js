@@ -5,11 +5,17 @@ import colors from '../../../themes/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ContentHomeScreen from './ContentHomeScreen';
 import CreateScreenPopup from './CreateScreenPopup';
-import StoryScreenPopup from './StoryScreenPopup';
+import { getAllPosts } from '../../../store/reducers/postsSlice';
+import { useDispatch } from 'react-redux';
 
 function HomeScreen({navigation}) {
 
   const [popupOpen, setPopupOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  function TestRedux() {
+    dispatch(getAllPosts());
+  }
 
   return (
     <View style={style.container}>
@@ -20,17 +26,23 @@ function HomeScreen({navigation}) {
           <Image style={styles.logo} source={require('../../../assets/logo-ig.png')} />
         </View>
         <View style={styles.headerRight}>
-        <TouchableOpacity>
-          <Ionicons style={styles.directMess} name='chatbubble-ellipses-outline' size={25} color={colors.black} 
-                      onPress={() => navigation.navigate('Message')}
-            />
-        </TouchableOpacity>
-
-        <TouchableOpacity>
+          <TouchableOpacity>
+            <Ionicons style={styles.directMess} name='chatbubble-ellipses-outline' size={25} color={colors.black} 
+                        onPress={() => navigation.navigate('Message')}
+              />
+          </TouchableOpacity>
+          
+          <TouchableOpacity>
           <Ionicons style={styles.newPost} name='add-outline' size={35} color={colors.black} 
                       onPress={() => setPopupOpen(true)}
                       />
-        </TouchableOpacity>
+          </TouchableOpacity>
+
+          {/* <TouchableOpacity>
+          <Ionicons style={styles.newPost} name='add-circle-outline' size={30} color={colors.black} 
+                      onPress={() => TestRedux()}
+                      />
+          </TouchableOpacity> */}
         </View>
       </View>
       
@@ -60,7 +72,7 @@ function HomeScreen({navigation}) {
     logo: {
       width: '60%',
       height: 40,
-      marginTop: 13
+      marginTop: 13,
     },
     headerRight: {
       width: '50%',
