@@ -7,5 +7,6 @@ export default {
   black: '#000',
   heart_color: '#bc282d',
   bgSender : '#4f80ec',
-  bgReciver : '#e7e7e7ba'
+  bgReciver : '#e7e7e7ba',
+  ig_color : '#dc4a74'
 }

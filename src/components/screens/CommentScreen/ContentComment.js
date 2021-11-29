@@ -1,186 +1,33 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
+import { useSelector } from 'react-redux';
+import { selectAllComments } from '../../../store/reducers/commentsSlice';
 import colors from '../../../themes/colors';
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Searchbar } from 'react-native-paper';
-import ImagePicker from 'react-native-image-crop-picker';
+import CommentItem from './CommentItem';
 
-function ContentMessage(props) {
+function contentComment({postData}) {
 
-  const [liked, setLiked] = useState(false);
+  const allComments = useSelector(selectAllComments);
+  // console.log(allComments)
+  const commentsPost = allComments.filter(comments => comments.postId === postData.id);
 
   return (
 
       <ScrollView style={styles.contentComment} showsVerticalScrollIndicator={false} >
         <View style={styles.statusPost}>
-          <Image style={styles.avatarAuthor} source={require('../../../assets/huybap.jpg')} />
+          <Image style={styles.avatarAuthor} source={postData.avatarAuthor} />
           <View style={styles.leftSection}>
-            <Text style={styles.username}>_huybapp99</Text>
-            <Text style={styles.status}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</Text>
+            <Text style={styles.username}>{postData.author}</Text>
+            <Text style={styles.status} numberOfLines={5} >{postData.status}</Text>
             <Text style={styles.timePost}>Edited . 11h</Text>
           </View>
         </View>
 
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/user2.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username2</Text>
-              <Text style={styles.comment}>text of the printing and typesetting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
+        { commentsPost.map(postData => (
+          <CommentItem postData={postData} key={postData.userId}/>
+        ))}
 
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/user3.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username3</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply dummy text </Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/user1.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username4</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply dummy text of industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post6.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username5</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply etting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post5.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username6</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post3.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username7</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post4.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username8</Text>
-              <Text style={styles.comment}>Lorem Ipsum is simply dummy text of the printing and typesetting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
-
-        <View style={styles.commentItem}>
-          <View style={styles.stackComment}>
-            <Image style={styles.avatarImage} source={require('../../../assets/huybap.jpg')}  />
-            <View style={styles.infoComment}>
-              <Text style={styles.authurName}>username1</Text>
-              <Text style={styles.comment}>text of the printing and typesetting industry</Text>
-              <View style={styles.timeReply}>
-                <Text style={styles.seenTime}>1m ago</Text>
-                <Text style={styles.replyComment}>Reply</Text>
-              </View>
-            </View>
-          </View>
-          <Ionicons style={styles.reactHeart} 
-                        name={liked ? "heart" : "heart-outline"} 
-                        size={20} 
-                        color={liked ? colors.heart_color : colors.black }
-                        onPress={() => setLiked((isLiked) => !isLiked)} 
-                        />
-        </View>
       </ScrollView>
   );
 }
@@ -214,7 +61,7 @@ const styles = StyleSheet.create({
   },
   status: {
     color: colors.black,
-    fontSize: 16
+    fontSize: 15
   },
   timePost: {
     color: colors.textColorSecond,
@@ -262,4 +109,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ContentMessage;
+export default contentComment;

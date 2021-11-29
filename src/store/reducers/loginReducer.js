@@ -5,7 +5,8 @@ export const initialLoginState = {
 };
 
 // state storage data you want passing to component
-export const loginReducer = (state, action) => {
+export const usersReducer = (state, action) => {
+
   switch( action.type ) {
     case 'RETRIEVE_TOKEN': 
       return {
@@ -35,5 +36,8 @@ export const loginReducer = (state, action) => {
         userToken: action.token,
         isLoading: false,
       };
+
+    default:
+      return state;
   }
 };

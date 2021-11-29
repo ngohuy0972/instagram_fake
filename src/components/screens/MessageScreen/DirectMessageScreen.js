@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { Image, StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
 import colors from '../../../themes/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import style from '../../../themes/style';
+import { useSelector } from 'react-redux';
+import { selectAllMess } from '../../../store/reducers/messagesSlice';
+import { messages } from '../../../models/messages';
+import MessageItemContent from './MessageItemContent';
 
-function DirectMessageScreen(props) {
+function DirectMessageScreen({navigation, route }) {
 
-  const [liked, setLiked] = useState(false);
+  const  {idUserReciver, avatarReciver, userReciver} = route.params;
+  const allMess = useSelector(selectAllMess);
+  const messByReciver = allMess.filter(messages => messages.userReciverId === idUserReciver);
+
+  // console.log(messByReciver)
+  const renderMessItemContent = ({item}) => (
+    <MessageItemContent 
+      navigation={navigation}
+      messItemContent={item}
+      avatarReciver={avatarReciver}
+    /> 
+  )
 
   return (
 
@@ -14,9 +30,9 @@ function DirectMessageScreen(props) {
       <View style={styles.header}>
         <TouchableOpacity style={styles.goBack}>
           <Ionicons name='arrow-back-outline' size={30} color={colors.black} 
-                    onPress={() => props.navigation.goBack()} />
+                    onPress={() => navigation.goBack()} />
         </TouchableOpacity>
-        <Text style={styles.userReciver}>_huybapp99</Text>
+        <Text style={styles.userReciver}>{userReciver}</Text>
         <View style={styles.callOptions}>
           <Ionicons style={styles.audioCall} name='call-outline' size={25} color={colors.black} 
                       onPress={() => alert('Audio Call')} />
@@ -26,50 +42,11 @@ function DirectMessageScreen(props) {
       </View>
       
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false} >
-        <View style={styles.messItemSender}>
-          <Text style={styles.contentMessSender}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemReciver}>
-          <Image style={styles.avatarReciver} source={require('../../../assets/user1.jpg')} />
-          <Text style={styles.contentMessReciver}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemSender}>
-          <Text style={styles.contentMessSender}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemReciver}>
-          <Image style={styles.avatarReciver} source={require('../../../assets/user1.jpg')} />
-          <Text style={styles.contentMessReciver}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemSender}>
-          <Text style={styles.contentMessSender}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemReciver}>
-          <Image style={styles.avatarReciver} source={require('../../../assets/user1.jpg')} />
-          <Text style={styles.contentMessReciver}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemSender}>
-          <Text style={styles.contentMessSender}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemReciver}>
-          <Image style={styles.avatarReciver} source={require('../../../assets/user1.jpg')} />
-          <Text style={styles.contentMessReciver}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemSender}>
-          <Text style={styles.contentMessSender}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
-
-        <View style={styles.messItemReciver}>
-          <Image style={styles.avatarReciver} source={require('../../../assets/user1.jpg')} />
-          <Text style={styles.contentMessReciver}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Text>
-        </View>
+        
+        <FlatList 
+          data={messByReciver}
+          renderItem={renderMessItemContent}
+        />
 
         <View>
           <Text style={style.gap}></Text>
@@ -168,7 +145,8 @@ const styles = StyleSheet.create({
   },
   messItemReciver: {
     flexDirection: 'row',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
+    marginLeft: 5
 
   },
   contentMessReciver: {

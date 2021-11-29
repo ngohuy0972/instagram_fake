@@ -1,19 +1,19 @@
 import React from 'react';
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { Text, StyleSheet, View, TextInput, Image } from 'react-native';
 import colors from '../../../themes/colors';
 import style from '../../../themes/style';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
-function StoryScreenPopup(props) {
+function StoryScreenPopup({avatarAuthor, storyImage, nameAuthor}) {
 
   return (
     <View style={styles.popupStoryContainer}>
       <View style={styles.headerComponent}>
-        <Image style={styles.storyAvatar} source={require('../../../assets/huybap.jpg')} />
-        <Text style={styles.storyUser}>username1</Text>
+        <Image style={styles.storyAvatar} source={avatarAuthor} />
+        <Text style={styles.storyUser}>{nameAuthor}</Text>
       </View>
       <View style={styles.storyContent}>
-        <Image style={styles.storyImage} source={require('../../../assets/huybap.jpg')} />
+        <Image style={styles.storyImage} source={storyImage} />
         <TextInput style={styles.replyMess} 
                     placeholder='Reply message...' 
                     placeholderTextColor='white' >

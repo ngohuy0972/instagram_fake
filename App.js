@@ -1,6 +1,6 @@
-import React, { useEffect, useReducer, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,Animated, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from './src/components/screens/LoginScreen';
@@ -10,15 +10,15 @@ import style from './src/themes/style';
 import MessageScreen from './src/components/screens/MessageScreen/MessageScreen';
 import DirectMessageScreen from './src/components/screens/MessageScreen/DirectMessageScreen';
 import CommentScreen from './src/components/screens/CommentScreen/CommentScreen';
-import { initialLoginState, loginReducer} from './src/store/reducers/loginReducer';
+import { initialLoginState, usersReducer } from './src/store/reducers/loginReducer';
 import { Provider } from 'react-redux';
-import { store } from './src/store';
+import { store } from './src/store/store';
  
  const Stack = createNativeStackNavigator();
 
  const App = () => {
    
-  const [state, dispatch] = React.useReducer(loginReducer, initialLoginState);
+  const [state, dispatch] = React.useReducer(usersReducer, initialLoginState);
 
   const authContext = React.useMemo(() => ({
     signIn: async(foundUser) => {

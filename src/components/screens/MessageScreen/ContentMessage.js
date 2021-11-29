@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, Modal, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, Text, View, Modal, TouchableOpacity, FlatList } from 'react-native';
 import colors from '../../../themes/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { Searchbar } from 'react-native-paper';
 import ImagePicker from 'react-native-image-crop-picker';
 import style from '../../../themes/style';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-virtualized-view';
+import MessageItem from './MessageItem';
 
-function ContentMessage({navigation}) {
+function ContentMessage({navigation, dataUser}) {
 
   const [popupOpen, setPopupOpen] = useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const onChangeSearch = query => setSearchQuery(query);
   const [image, setImage] = useState('https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png');
+  
+  // console.log(dataUser)
+
+  const renderMessItem = ({item}) => (
+    <MessageItem 
+      navigation={navigation}
+      messItem={item}
+    /> 
+  )
 
   const useCamera = () => {
     ImagePicker.openCamera({
@@ -34,113 +44,14 @@ function ContentMessage({navigation}) {
                     value={searchQuery}
                     style={styles.searchBar} />
 
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/huybap.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName} >username1</Text>
-              <Text style={styles.seenTime}>Seen 1m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/user1.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username2</Text>
-              <Text style={styles.seenTime}>Seen 2m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/user3.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username3</Text>
-              <Text style={styles.seenTime}>Seen 3m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post1.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username4</Text>
-              <Text style={styles.seenTime}>Seen 4m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post2.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username5</Text>
-              <Text style={styles.seenTime}>Seen 5m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post3.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username6</Text>
-              <Text style={styles.seenTime}>Seen 6m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post6.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username7</Text>
-              <Text style={styles.seenTime}>Seen 7m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess}>
-            <Image style={styles.avatarImage} source={require('../../../assets/post4.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username8</Text>
-              <Text style={styles.seenTime}>Seen 8m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.chatItem} onPress={() => navigation.navigate('Direct Message')}>
-          <View style={styles.stackMess} onPress={() => navigation} >
-            <Image style={styles.avatarImage} source={require('../../../assets/user2.jpg')}  />
-            <View style={styles.infoChat}>
-              <Text style={styles.authurName}>username10</Text>
-              <Text style={styles.seenTime}>Seen 10m ago</Text>
-            </View>
-          </View>
-          <Ionicons style={styles.videoCallIcon} name='camera-outline' size={30} color={colors.textColorSecond} 
-                    onPress={() => useCamera()} />
-        </TouchableOpacity>
+        {/* { getAllDirect.map(datatUser => (
+          <MessageItem datatUser={datatUser} key={datatUser.id}/>
+        ))}          */}
+        {/* <MessageItem navigation={navigation} dataUser={dataUser} /> */}
+        <FlatList 
+          data={dataUser}
+          renderItem={renderMessItem}
+        />
 
         <Modal visible={popupOpen} animationType='slide' >
           <TouchableOpacity>

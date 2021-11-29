@@ -16,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    marginHorizontal: 5
+    // marginHorizontal: 5
   },
   button: {
     width: 200,

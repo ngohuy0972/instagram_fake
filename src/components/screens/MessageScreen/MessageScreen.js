@@ -3,14 +3,13 @@ import { Image, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'rea
 import colors from '../../../themes/colors';
 import style from '../../../themes/style';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import { Searchbar } from 'react-native-paper';
-import { color } from 'react-native-reanimated';
 import ContentMessage from './ContentMessage';
+import { users } from '../../../models/users';
 
 function MessageScreen({navigation}) {
 
-  const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  const dataUser = users;
+  // console.log(dataUser)
 
   return (
     <View style={style.container}>
@@ -21,7 +20,11 @@ function MessageScreen({navigation}) {
         </TouchableOpacity>
         <Text style={styles.textHeader}>All chats</Text>
       </View>
-      <ContentMessage navigation={navigation} />
+      
+      <ContentMessage navigation={navigation} 
+                      dataUser={dataUser}
+      />
+
     </View>
   );
 }
